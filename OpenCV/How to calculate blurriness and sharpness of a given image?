@@ -7,25 +7,24 @@ In general, sum of magnitude of image shows focus fluctuations (smoothness).In s
 C:
 double calcGradients(const IplImage*src,intaperture_size=7)
 {
-CvSize sz=cvGetSize(src);
-IplImage*img16_x=cvCreateImage(sz,IPL_DEPTH_16S,1);
-IplImage*img16_y=cvCreateImage(sz,IPL_DEPTH_16S,1);
-cvSobel(src,img16_x,1,0,aperture_size);
-cvSobel(src,img16_y,0,1,aperture_size);
-IplImage*imgF_x=cvCreateImage(sz,IPL_DEPTH_32F,1);
-IplImage*imgF_y=cvCreateImage(sz,IPL_DEPTH_32F,1);
-cvScale(img16_x,imgF_x);
-cvScale(img16_y,imgF_y);
-IplImage*magnitude=cvCreateImage(sz,IPL_DEPTH_32F,1);
-cvCartToPolar(imgF_x,imgF_y,magnitude);
-double res=cvSum(magnitude).val[0];
-cvReleaseImage(&magnitude);
-cvReleaseImage(&imgF_x);
-cvReleaseImage(&imgF_y);
-cvReleaseImage(&img16_x);
-cvReleaseImage(&img16_y);
-return
-res;
+    CvSize sz=cvGetSize(src);
+    IplImage*img16_x=cvCreateImage(sz,IPL_DEPTH_16S,1);
+    IplImage*img16_y=cvCreateImage(sz,IPL_DEPTH_16S,1);
+    cvSobel(src,img16_x,1,0,aperture_size);
+    cvSobel(src,img16_y,0,1,aperture_size);
+    IplImage*imgF_x=cvCreateImage(sz,IPL_DEPTH_32F,1);
+    IplImage*imgF_y=cvCreateImage(sz,IPL_DEPTH_32F,1);
+    cvScale(img16_x,imgF_x);
+    cvScale(img16_y,imgF_y);
+    IplImage*magnitude=cvCreateImage(sz,IPL_DEPTH_32F,1);
+    cvCartToPolar(imgF_x,imgF_y,magnitude);
+    double res=cvSum(magnitude).val[0];
+    cvReleaseImage(&magnitude);
+    cvReleaseImage(&imgF_x);
+    cvReleaseImage(&imgF_y);
+    cvReleaseImage(&img16_x);
+    cvReleaseImage(&img16_y);
+    return res;
 }
 
 
@@ -42,7 +41,7 @@ double contrast_measure( const Mat&img )
 
 
 
-
+//
 test code for the function calcBlurriness which is an undocumented OpenCV function
 
 
@@ -83,6 +82,10 @@ int main( int argc, char** argv )
     }
     return 0;
 }
+
+
+
+
 resuts : ( the lesser value means more sharpness )
 
 original image : 4.97583e-005
